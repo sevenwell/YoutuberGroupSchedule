@@ -1,6 +1,6 @@
 function printCard(video, status) {
 
-    var content = document.getElementById(status + 'Template').content;
+    var content = document.getElementById('card').content;
     content.querySelector('a').href = 'https://www.youtube.com/watch?v=' + video['id']['videoId'];
     content.querySelector('a').textContent = video['snippet']['channelTitle'] + '　' + video['snippet']['title'];
     content.querySelector('img').src = video['snippet']['thumbnails']['default']['url'];
