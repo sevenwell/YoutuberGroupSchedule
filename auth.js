@@ -69,30 +69,3 @@ function handleAuthClick(event) {
 function handleSignoutClick(event) {
   gapi.auth2.getAuthInstance().signOut();
 }
-
-/**
- * Append text to a pre element in the body, adding the given message
- * to a text node in that element. Used to display info from API response.
- *
- * @param {string} message Text to be placed in pre element.
- */
-function appendPre(message) {
-  var pre = document.getElementById('content');
-  var textContent = document.createTextNode(message + '\n');
-  pre.appendChild(textContent);
-}
-
-/**
- * Print files.
- */
-function getChannel() {
-  gapi.client.youtube.search.list({
-    'part': 'snippet',
-    'channelId': 'UCD-miitqNY3nyukJ4Fnf4_A',
-    'order': 'date'
-  }).then(function(response) {
-    var video = response.result.items[0];
-    appendPre('This channel is ' + video.snippet.channelTitle + '. ' +
-              'Its title is \'' + video.snippet.title + '\'.');
-  });
-}

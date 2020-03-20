@@ -1,6 +1,13 @@
-/**
- * Print files.
- */
+function printCard(video, status) {
+
+    var content = document.getElementById(status + 'Template').content;
+    content.querySelector('a').href = 'https://www.youtube.com/watch?v=' + video['id']['videoId'];
+    content.querySelector('a').textContent = video['snippet']['channelTitle'] + '　' + video['snippet']['title'];
+    content.querySelector('img').src = video['snippet']['thumbnails']['default']['url'];
+    document.getElementById(status).appendChild(document.importNode(content, true));
+
+}
+
 function requestAPI(id) {
     gapi.client.youtube.search.list({
       'part': 'snippet',
@@ -13,68 +20,14 @@ function requestAPI(id) {
       for (var j = 0; j < videos.length; j++) {
 
         var video = videos[j];
-    
-        switch (video['snippet']['liveBroadcastContent']) {
-            case 'live':
-                var content = document.querySelector('#liveTemplate').content;
-                break;
-            case 'upcoming':
-                var content = document.querySelector('#upcomingTemplate').content;
-                break;
-            default:
-                var content = null;
-        }
-
-        if (content) {
-            content.querySelector('a').href = 'https://www.youtube.com/watch?v=' + video['id']['videoId'];
-            content.querySelector('a').textContent = video['snippet']['channelTitle'] + '　' + video['snippet']['title'];
-            content.querySelector('img').src = video['snippet']['thumbnails']['default']['url'];
-            var clone = document.importNode(content, true);
-            document.body.appendChild(clone);
+        var status = video['snippet']['liveBroadcastContent'];
+        if (status != 'none') {
+            printCard(video, status);
         }
     
       }
-});
+    });
 }
-
-/*
-function requestAPI(id) {
-
-    var requestURL = `https://www.googleapis.com/youtube/v3/search?channelId=${id}&key=${apiKey}&order=date&part=snippet`;
-    var request = new XMLHttpRequest();
-    request.open('GET', requestURL);
-    request.responseType = 'json';
-    request.onload = function() {
-        var videos = request.response['items'];
-        for (var j = 0; j < videos.length; j++) {
-
-            var video = videos[j];
-        
-            switch (video['snippet']['liveBroadcastContent']) {
-                case 'live':
-                    var content = document.querySelector('#liveTemplate').content;
-                    break;
-                case 'upcoming':
-                    var content = document.querySelector('#upcomingTemplate').content;
-                    break;
-                default:
-                    var content = null;
-            }
-
-            if (content) {
-                content.querySelector('a').href = 'https://www.youtube.com/watch?v=' + video['id']['videoId'];
-                content.querySelector('a').textContent = video['snippet']['channelTitle'] + '　' + video['snippet']['title'];
-                content.querySelector('img').src = video['snippet']['thumbnails']['default']['url'];
-                var clone = document.importNode(content, true);
-                document.body.appendChild(clone);
-            }
-        
-        }
-    };
-    request.send();
-
-}
-*/
 
 function load() {
     for (let name in channels) {
