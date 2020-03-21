@@ -1,28 +1,25 @@
-function printCard(video, status) {
+function printCard(activity) {
 
-    var content = document.getElementById('card').content;
-    content.querySelector('a').href = 'https://www.youtube.com/watch?v=' + video['id']['videoId'];
-    content.querySelector('a').textContent = video['snippet']['channelTitle'] + '　' + video['snippet']['title'];
-    content.querySelector('img').src = video['snippet']['thumbnails']['default']['url'];
-    document.getElementById(status).appendChild(document.importNode(content, true));
+    var content = document.getElementById('cardTemplate').content;
+    content.querySelector('img').src = activity['snippet']['thumbnails']['medium']['url'];
+    content.querySelector('p').textContent = activity['snippet']['title'];
+    document.getElementById('board').appendChild(document.importNode(content, true));
 
 }
 
 function requestAPI(id) {
-    gapi.client.youtube.search.list({
+    gapi.client.youtube.activities.list({
       'part': 'snippet',
-      'channelId': id,
-      'order': 'date'
+      'channelId': id
     }).then(function(response) {
 
-      var videos = response.result.items;
+      var activities = response.result.items;
 
-      for (var j = 0; j < videos.length; j++) {
+      for (var j = 0; j < activities.length; j++) {
 
-        var video = videos[j];
-        var status = video['snippet']['liveBroadcastContent'];
-        if (status != 'none') {
-            printCard(video, status);
+        var activity = activities[j];
+        if (activity['snippet']['type'] == 'upload') {
+            printCard(activity);
         }
     
       }
