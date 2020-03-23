@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>YouTube Data API Quickstart</title>
+    <title>にじさんじ配信履歴</title>
     <meta charset='utf-8' />
+    <link href="style.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-    <p>YouTube Data API Quickstart</p>
+
+    <header>
+      <h1>にじさんじ配信履歴</h1>
+      <p>各ライバーの最新動画が表示されます</p>
+    </header>
 
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize-button" style="display: none;">Authorize</button>
     <button id="signout-button" style="display: none;">Sign Out</button>
 
-    <section id='board'>
-
+    <section id="videos">
+      <template id="cardTemplate">
+        <a href="">
+          <div class="card">
+            <img class="card-img" src="" alt="サムネイル">
+            <div class="card-content">
+              <p class="card-title"></p>
+            </div>
+          </div>    
+        </a>
+      </template>  
     </section>
-
-    <template id="cardTemplate">
-      <div class="card">
-        <img class="card-img" src="" alt="サムネイル">
-        <div class="card-content">
-          <p class="card-title"></p>
-        </div>
-      </div>
-    </template>
 
     <script src='./member.js'></script>
     <script src='./load.js'></script>
@@ -32,5 +37,6 @@
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
+    
   </body>
 </html>

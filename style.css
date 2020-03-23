@@ -1,0 +1,54 @@
+header {
+  width: 100%;
+  height: 80px;
+  background-color: coral;
+  display: flex;
+  flex-flow: row nowrap;
+}
+header h1 {
+  margin-left: 10px;
+  width: 50%;
+  font-size: 50px;
+  color: #fff;
+  align-self: center;
+}
+header p {
+  width: 50%;
+  font-size: 20px;
+  color: #fff;
+  align-self: center;
+}
+
+#videos {
+  display: flex;
+  flex-flow: row wrap;
+}
+.card {
+  flex: none;
+  width: 400px;
+  height: 400px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px #ccc;
+  animation: fadeIn 1s ease 0s 1 normal;
+}
+.card-img {
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+  height: auto;
+}
+.card-content {
+  width: 100%;
+  padding: 20px;
+}
+.card-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
